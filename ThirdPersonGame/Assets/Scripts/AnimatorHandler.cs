@@ -25,55 +25,28 @@ public class AnimatorHandler : MonoBehaviour
     {
         #region Vertical
 
-        var v = 0f;
+        var v = verticalMovement switch
+        {
+            > 0 and < 0.55f => 0.5f,
+            > 0.55f => 1,
+            < 0 and > -0.55f => -0.5f,
+            < -0.55f => -1f,
+            _ => 0
+        };
 
-        if (verticalMovement > 0 && verticalMovement < 0.55f)
-        {
-            v = 0.5f;
-        }
-        else if (verticalMovement > 0.55f)
-        {
-            v = 1;
-        }
-        else if (verticalMovement < 0 && verticalMovement > -0.55f)
-        {
-            v = -0.5f;
-        }
-        else if (verticalMovement < -0.55f)
-        {
-            v = -1f;
-        }
-        else
-        {
-            v = 0;
-        }
         #endregion
 
         #region Horizontal
 
-        float h = 0;
+        var h = horizontalMovement switch
+        {
+            > 0 and < 0.55f => 0.5f,
+            > 0.55f => 1f,
+            < 0 and > -0.55f => -0.55f,
+            < -0.55f => -1f,
+            _ => 0f
+        };
 
-        if (horizontalMovement > 0 && horizontalMovement < 0.55f)
-        {
-            h = 0.5f;
-        }
-        else if (horizontalMovement > 0.55f)
-        {
-            h = 1f;
-        }
-        else if (horizontalMovement < 0 && horizontalMovement > -0.55f)
-        {
-            h = -0.55f;
-        }
-        else if (horizontalMovement < -0.55f)
-        {
-            h = -1f;
-        }
-        else
-        {
-            h = 0f;
-        }
-        
         #endregion
 
         anim.SetFloat(_vertical, v, 0.1f, Time.deltaTime);

@@ -16,11 +16,28 @@ public class InputHandler : MonoBehaviour
     [HideInInspector] public float mouseY;
 
     private PlayerControls _inputs;
+    private CameraHandler _cameraHandler;
 
     private Vector2 _movementInput;
     private Vector2 _cameraInput;
 
     #endregion
+
+    private void Awake()
+    {
+        _cameraHandler = CameraHandler.Singleton;
+    }
+
+    private void FixedUpdate()
+    {
+        var delta = Time.fixedDeltaTime;
+
+        if (_cameraHandler != null)
+        {
+            _cameraHandler.FollowTarget(delta);
+            _cameraHandler.HandleCameraRotation(delta, mouseX, mouseY);
+        }
+    }
 
     public void OnEnable()
     {

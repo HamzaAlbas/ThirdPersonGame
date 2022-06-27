@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
         _moveDirection = _cameraObject.forward * _inputHandler.vertical;
         _moveDirection += _cameraObject.right * _inputHandler.horizontal;
         _moveDirection.Normalize();
+        _moveDirection.y = 0;
 
         var speed = movementSpeed;
         _moveDirection *= speed;
