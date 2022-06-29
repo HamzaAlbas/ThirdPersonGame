@@ -47,6 +47,7 @@ public class CameraHandler : MonoBehaviour
     {
         var targetPosition = Vector3.SmoothDamp(_myTransform.position, targetTransform.position, ref _cameraFollowVelocity, delta / followSpeed);
         _myTransform.position = targetPosition;
+        HandleCameraCollisions(delta);
     }
 
     public void HandleCameraRotation(float delta, float mouseXInput, float mouseYInput)
@@ -82,7 +83,10 @@ public class CameraHandler : MonoBehaviour
 
         if (Mathf.Abs(_targetPosition) < minimumCollisionOffset)
         {
-            _targetPosition = -minim
+            _targetPosition = -minimumCollisionOffset;
         }
+
+        _cameraTransformPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, _targetPosition, delta / 0.2f);
+        cameraTransform.localPosition = _cameraTransformPosition;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -11,12 +12,16 @@ public class AnimatorHandler : MonoBehaviour
     private int _vertical;
     private int _horizontal;
     public bool canRotate;
+    public InputHandler inputHandler;
+    public PlayerController playerController;
 
     #endregion
 
     public void Initialize()
     {
         anim = GetComponent<Animator>();
+        inputHandler = GetComponentInParent<InputHandler>();
+        playerController = GetComponentInParent<PlayerController>();
         _vertical = Animator.StringToHash("Vertical");
         _horizontal = Animator.StringToHash("Horizontal");
     }
@@ -53,6 +58,13 @@ public class AnimatorHandler : MonoBehaviour
         anim.SetFloat(_horizontal, h, 0.1f, Time.deltaTime);
     }
 
+    public void PlayTargetAnimation(string targetAnim, bool isInteracting)
+    {
+        anim.applyRootMotion = isInteracting;
+        anim.SetBool("isInteracting", isInteracting);
+        anim.CrossFade(targetAnim, 0.2f);
+    }
+    
     public void CanRotate()
     {
         canRotate = true;
@@ -61,5 +73,20 @@ public class AnimatorHandler : MonoBehaviour
     public void StopRotation()
     {
         canRotate = false;
+    }
+
+    private void OnAnimatorMove()
+    {
+        if (inputHandler.isInteracting == false)
+        {
+            return;
+        }
+
+        var delta = Time.deltaTime;
+        playerController.rigidbody.drag = 0;
+        var deltaPosition = anim.deltaPosition;
+        deltaPosition.y = 0;
+        var velocity = deltaPosition / delta;
+        playerController.rigidbody.velocity = velocity;
     }
 }
