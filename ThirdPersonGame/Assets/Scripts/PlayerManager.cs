@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class PlayerManager : MonoBehaviour
 {
+    #region VARIABLES
+
     public InputHandler inputHandler;
     public Animator animator;
     private CameraHandler _cameraHandler;
@@ -9,8 +12,11 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public bool isInteracting;
     [HideInInspector] public bool isSprinting;
     private static readonly int IsInteracting = Animator.StringToHash("isInteracting");
+    [HideInInspector] public bool isInAir;
+    [HideInInspector] public bool isGrounded;
 
-
+    #endregion
+    
     private void Awake()
     {
         _cameraHandler = CameraHandler.singleton;
@@ -32,6 +38,7 @@ public class PlayerManager : MonoBehaviour
         inputHandler.TickInput(delta);
         _playerController.HandleMovement(delta);
         _playerController.HandleRollingAndSprinting(delta);
+        _playerController.HandleFalling(delta, _playerController.moveDirection);
 
     }
     
@@ -51,6 +58,10 @@ public class PlayerManager : MonoBehaviour
         inputHandler.rollFlag = false;
         inputHandler.sprintFlag = false;
         isSprinting = inputHandler.bInput;
- 
+
+        if (isInAir)
+        {
+            _playerController.inAirTimer += Time.deltaTime;
+        }
     }
 }

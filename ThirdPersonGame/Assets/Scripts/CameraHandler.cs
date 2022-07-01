@@ -32,7 +32,6 @@ public class CameraHandler : MonoBehaviour
     
     #endregion
 
-
     private void Awake()
     {
         //Application.targetFrameRate = 60;
