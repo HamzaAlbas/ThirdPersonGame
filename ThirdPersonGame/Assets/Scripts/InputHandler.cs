@@ -15,8 +15,10 @@ public class InputHandler : MonoBehaviour
     [HideInInspector] public float moveAmount;
     [HideInInspector] public float mouseX;
     [HideInInspector] public float mouseY;
+    [HideInInspector] public float rollInputTimer;
     [HideInInspector] public bool b_Input;
     [HideInInspector] public bool rollFlag;
+    [HideInInspector] public bool sprintFlag;
     [HideInInspector] public bool isInteracting;
     
     private PlayerControls _inputs;
@@ -81,7 +83,18 @@ public class InputHandler : MonoBehaviour
         
         if (b_Input)
         {
-            rollFlag = true;
+            rollInputTimer += delta;
+            sprintFlag = true;
+        }
+        else
+        {
+            if (rollInputTimer > 0 && rollInputTimer <0.5f)
+            {
+                sprintFlag = false;
+                rollFlag = true;
+            }
+
+            rollInputTimer = 0;
         }
     }
 }
