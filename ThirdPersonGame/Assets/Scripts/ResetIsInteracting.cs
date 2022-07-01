@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ResetIsInteracting : StateMachineBehaviour
 {
+    private static readonly int IsInteracting = Animator.StringToHash("isInteracting");
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -19,7 +18,7 @@ public class ResetIsInteracting : StateMachineBehaviour
     //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool("isInteracting", false);
+        animator.SetBool(IsInteracting, false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 
     private Transform _cameraObject;
     private InputHandler _inputHandler;
+    private PlayerManager _playerManager;
     private Vector3 _moveDirection;
     [HideInInspector] public Transform myTransform;
     [HideInInspector] public AnimatorHandler animatorHandler;
@@ -18,26 +19,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movementSpeed = 5;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float sprintSpeed = 7;
-    [HideInInspector] public bool isSprinting;
     
     //Movement
     private Vector3 _normalVector;
     private Vector3 _targetPosition;
+    private static readonly int IsInteracting = Animator.StringToHash("isInteracting");
+
     #endregion
     
     private void Start()
     {
         GetReferences();   
-    }
-
-    private void Update()
-    {
-        var delta = Time.deltaTime;
-        
-        isSprinting = _inputHandler.b_Input;
-        _inputHandler.TickInput(delta);
-        HandleMovement(delta);
-        HandleRollingAndSprinting(delta);
     }
 
     #region MOVEMENT
@@ -83,7 +75,7 @@ public class PlayerController : MonoBehaviour
         if (_inputHandler.sprintFlag)
         {
             speed = sprintSpeed;
-            isSprinting = true;
+            _playerManager.isSprinting = true;
             _moveDirection *= speed;
         }
         else
@@ -94,7 +86,7 @@ public class PlayerController : MonoBehaviour
         var projectedVelocity = Vector3.ProjectOnPlane(_moveDirection, _normalVector);
         rigidbody.velocity = projectedVelocity;
 
-        animatorHandler.UpdateAnimatorValues(_inputHandler.moveAmount, 0, isSprinting);
+        animatorHandler.UpdateAnimatorValues(_inputHandler.moveAmount, 0, _playerManager.isSprinting);
         if (animatorHandler.canRotate)
         {
             HandleRotation(delta);
@@ -103,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
     public void HandleRollingAndSprinting(float delta)
     {
-        if (animatorHandler.anim.GetBool("isInteracting"))
+        if (animatorHandler.anim.GetBool(IsInteracting))
             return;
         if (_inputHandler.rollFlag)
         {
@@ -128,6 +120,7 @@ public class PlayerController : MonoBehaviour
     
     private void GetReferences()
     {
+        _playerManager = GetComponent<PlayerManager>();
         rigidbody = GetComponent<Rigidbody>();
         _inputHandler = GetComponent<InputHandler>();
         if (Camera.main != null) _cameraObject = Camera.main.transform;

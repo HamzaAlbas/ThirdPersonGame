@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
+
 
 public class InputHandler : MonoBehaviour
 {
@@ -16,10 +11,9 @@ public class InputHandler : MonoBehaviour
     [HideInInspector] public float mouseX;
     [HideInInspector] public float mouseY;
     [HideInInspector] public float rollInputTimer;
-    [HideInInspector] public bool b_Input;
+    [HideInInspector] public bool bInput;
     [HideInInspector] public bool rollFlag;
     [HideInInspector] public bool sprintFlag;
-    [HideInInspector] public bool isInteracting;
     
     private PlayerControls _inputs;
     private CameraHandler _cameraHandler;
@@ -28,22 +22,6 @@ public class InputHandler : MonoBehaviour
     private Vector2 _cameraInput;
 
     #endregion
-
-    private void Awake()
-    {
-        _cameraHandler = CameraHandler.Singleton;
-    }
-
-    private void FixedUpdate()
-    {
-        var delta = Time.fixedDeltaTime;
-
-        if (_cameraHandler != null)
-        {
-            _cameraHandler.FollowTarget(delta);
-            _cameraHandler.HandleCameraRotation(delta, mouseX, mouseY);
-        }
-    }
 
     public void OnEnable()
     {
@@ -60,7 +38,6 @@ public class InputHandler : MonoBehaviour
     {
         _inputs.Disable();
     }
-
 
     public void TickInput(float delta)
     {
@@ -79,9 +56,9 @@ public class InputHandler : MonoBehaviour
 
     private void HandleRollInput(float delta)
     {
-        b_Input = _inputs.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
+        bInput = _inputs.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
         
-        if (b_Input)
+        if (bInput)
         {
             rollInputTimer += delta;
             sprintFlag = true;

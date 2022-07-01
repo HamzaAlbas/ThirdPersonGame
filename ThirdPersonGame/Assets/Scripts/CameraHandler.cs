@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class CameraHandler : MonoBehaviour
@@ -14,7 +13,7 @@ public class CameraHandler : MonoBehaviour
     private LayerMask _ignoreLayers;
     private Vector3 _cameraFollowVelocity = Vector3.zero;
 
-    public static CameraHandler Singleton;
+    public static CameraHandler singleton;
 
     public float lookSpeed = 0.1f;
     public float followSpeed = 0.1f;
@@ -37,7 +36,7 @@ public class CameraHandler : MonoBehaviour
     private void Awake()
     {
         //Application.targetFrameRate = 60;
-        Singleton = this;
+        singleton = this;
         _myTransform = transform;
         _defaultPosition = cameraTransform.localPosition.z;
         _ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
