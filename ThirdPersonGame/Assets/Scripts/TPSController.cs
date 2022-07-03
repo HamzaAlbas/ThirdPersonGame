@@ -19,12 +19,14 @@ public class TPSController : MonoBehaviour
 
    private StarterAssetsInputs _starterAssetsInputs;
    private ThirdPersonController _thirdPersonController;
-   
+
+   private Animator _animator;
 
    private void Awake()
    {
       _thirdPersonController = GetComponent<ThirdPersonController>();
       _starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+      _animator = GetComponent<Animator>();
    }
 
 
@@ -49,6 +51,7 @@ public class TPSController : MonoBehaviour
          aimVirtualCamera.gameObject.SetActive(true);
          _thirdPersonController.SetSensitivity(aimSens);
          _thirdPersonController.SetRotateOnMove(false);
+         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
 
          var worldAimTarget = mouseWorldPosition;
          var transform1 = transform;
@@ -63,6 +66,8 @@ public class TPSController : MonoBehaviour
          aimVirtualCamera.gameObject.SetActive(false);
          _thirdPersonController.SetSensitivity(normalSens);
          _thirdPersonController.SetRotateOnMove(true);
+         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
+
       }
 
 
