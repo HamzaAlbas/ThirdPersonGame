@@ -6,8 +6,6 @@ public class BulletProjectile : MonoBehaviour
 {
     private Rigidbody _bulletRigidbody;
     [SerializeField] private float speed = 10f;
-    [SerializeField] private Transform vfxHitRed;
-    [SerializeField] private Transform vfxHitGreen;
     private void Awake()
     {
         _bulletRigidbody = GetComponent<Rigidbody>();
@@ -20,14 +18,6 @@ public class BulletProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<BulletTarget>() != null)
-        {
-            Instantiate(vfxHitRed, transform.position, Quaternion.identity);
-        }
-        else
-        {
-            Instantiate(vfxHitGreen, transform.position, Quaternion.identity);
-        }
         Destroy(gameObject);
     }
 }

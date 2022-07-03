@@ -14,6 +14,8 @@ public class TPSController : MonoBehaviour
    [SerializeField] private Transform debugTransform;
    [SerializeField] private Transform bulletPf;
    [SerializeField] private Transform bulletSpawnPos;
+   [SerializeField] private Transform vfxHitRed;
+   [SerializeField] private Transform vfxHitGreen;
 
    private StarterAssetsInputs _starterAssetsInputs;
    private ThirdPersonController _thirdPersonController;
@@ -30,6 +32,7 @@ public class TPSController : MonoBehaviour
    {
       var mouseWorldPosition = Vector3.zero;
       var screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height /2f);
+      Transform _hitTransform = null;
       if (Camera.main != null)
       {
          var ray = Camera.main.ScreenPointToRay(screenCenterPoint);
@@ -37,6 +40,7 @@ public class TPSController : MonoBehaviour
          {
             debugTransform.position = raycastHit.point;
             mouseWorldPosition = raycastHit.point;
+            _hitTransform = raycastHit.transform;
          }
       }
 
@@ -64,10 +68,25 @@ public class TPSController : MonoBehaviour
 
       if (_starterAssetsInputs.shoot)
       {
+         if (_hitTransform != null)
+         {
+            if (_hitTransform.GetComponent<BulletTarget>() != null)
+            {
+               Instantiate(vfxHitRed, mouseWorldPosition, Quaternion.identity);
+            }
+            else
+            {
+               Instantiate(vfxHitGreen, mouseWorldPosition, Quaternion.identity);
+            }
+         }
+         /* Shooting With Projectile 
+          
          var spawnPos = bulletSpawnPos.position;
          var aimDir = (mouseWorldPosition - spawnPos).normalized;
-         Instantiate(bulletPf, spawnPos, Quaternion.LookRotation(aimDir, Vector3.up));
+         Instantiate(bulletPf, spawnPos, Quaternion.LookRotation(aimDir, Vector3.up));*/
          _starterAssetsInputs.shoot = false;
       }
    }
+
+
 }

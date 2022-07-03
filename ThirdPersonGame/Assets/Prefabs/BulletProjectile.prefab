@@ -76,9 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d5beeb07fc80149b9e2dbbeb0abdcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  vfxHitRed: {fileID: 9151512845288100062, guid: a038e2c977394054ab5e9c32cf15bd7f, type: 3}
-  vfxHitGreen: {fileID: 6805689726426609054, guid: d6a3c86c82cd04448a4100ba70604f29, type: 3}
+  speed: 200
 --- !u!1 &4696372724473669482
 GameObject:
   m_ObjectHideFlags: 0
