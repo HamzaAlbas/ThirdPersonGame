@@ -73,6 +73,7 @@ public class TPSController : MonoBehaviour
 
       if (_starterAssetsInputs.shoot)
       {
+         CameraShake.Instance.ShakeCamera();
          if (_hitTransform != null)
          {
             if (_hitTransform.GetComponent<BulletTarget>() != null)
