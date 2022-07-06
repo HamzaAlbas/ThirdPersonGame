@@ -20,25 +20,4 @@ public class CameraShake : MonoBehaviour
     {
         _impulseSource.GenerateImpulse();
     }
-    
-/*
-    public void ShakeCamera(float intensity, float time)
-    {
-        var perlin = _camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        perlin.m_AmplitudeGain = intensity;
-        _shakeTimer = time;
-    }
-
-    private void Update()
-    {
-        if (_shakeTimer > 0 )
-        {
-            _shakeTimer -= Time.deltaTime;
-            if (_shakeTimer <= 0f)
-            {
-                var perlin = _camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-                perlin.m_AmplitudeGain = 0.7f;
-            }
-        }
-    }*/
 }

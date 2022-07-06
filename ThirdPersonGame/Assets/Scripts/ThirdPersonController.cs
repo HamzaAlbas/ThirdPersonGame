@@ -394,6 +394,7 @@ namespace StarterAssets
             }
         }
 
+        
         public void SetSensitivity(float newSens)
         {
             sensitivity = newSens;

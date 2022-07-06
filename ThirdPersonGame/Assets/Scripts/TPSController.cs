@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine;
@@ -12,11 +9,12 @@ public class TPSController : MonoBehaviour
    [SerializeField] private float aimSens;
    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
    [SerializeField] private Transform debugTransform;
-   [SerializeField] private Transform bulletPf;
-   [SerializeField] private Transform bulletSpawnPos;
+   [SerializeField] private Transform weaponPos;
    [SerializeField] private Transform vfxHitRed;
    [SerializeField] private Transform vfxHitGreen;
-
+   [SerializeField] private AudioClip pistolClip;
+   [Range(0, 1)] public float pistolVolume = 0.5f;
+   
    private StarterAssetsInputs _starterAssetsInputs;
    private ThirdPersonController _thirdPersonController;
 
@@ -73,6 +71,8 @@ public class TPSController : MonoBehaviour
 
       if (_starterAssetsInputs.shoot)
       {
+         AudioSource.PlayClipAtPoint(pistolClip, transform.TransformPoint(weaponPos.position), pistolVolume);
+         
          CameraShake.Instance.ShakeCamera();
          if (_hitTransform != null)
          {
@@ -85,11 +85,7 @@ public class TPSController : MonoBehaviour
                Instantiate(vfxHitGreen, mouseWorldPosition, Quaternion.identity);
             }
          }
-         /* Shooting With Projectile 
-          
-         var spawnPos = bulletSpawnPos.position;
-         var aimDir = (mouseWorldPosition - spawnPos).normalized;
-         Instantiate(bulletPf, spawnPos, Quaternion.LookRotation(aimDir, Vector3.up));*/
+         
          _starterAssetsInputs.shoot = false;
       }
    }

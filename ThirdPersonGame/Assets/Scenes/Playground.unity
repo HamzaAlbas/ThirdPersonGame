@@ -1127,6 +1127,11 @@ MonoBehaviour:
     m_FrequencyGain: 1
     m_Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!4 &1223875260 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
+  m_PrefabInstance: {fileID: 1402827283}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1392439735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,7 +1569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2012272139}
   m_Layer: 8
-  m_Name: Bullet Spawn
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2116,10 +2121,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   debugTransform: {fileID: 1057307950}
-  bulletPf: {fileID: 9165678559285214304, guid: e6155f6fb7152714a8919cf3c4ee8cae, type: 3}
-  bulletSpawnPos: {fileID: 2012272139}
+  weaponPos: {fileID: 1223875260}
   vfxHitRed: {fileID: 4619276777377709197, guid: a686d7c7294613544ac8cd455f305cf5, type: 3}
   vfxHitGreen: {fileID: 4619276777377709197, guid: b2542e0c494457c45a84a8792aed22e1, type: 3}
+  pistolClip: {fileID: 8300000, guid: 41ea5f9d3b1b7d84a8b59b6eca56c6ff, type: 3}
+  pistolVolume: 1
 --- !u!4 &8002264680806281515
 Transform:
   m_ObjectHideFlags: 0
