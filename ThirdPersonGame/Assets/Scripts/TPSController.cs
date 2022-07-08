@@ -75,34 +75,47 @@ public class TPSController : MonoBehaviour
 
       
 
-      if (_starterAssetsInputs.switching > 0)
+      switch (_starterAssetsInputs.switching)
       {
-         _selectedWeapon++;
-         if (_selectedWeapon == 3)
+         case > 0:
          {
-            _selectedWeapon = 0;
+            _selectedWeapon++;
+            if (_selectedWeapon == 3)
+            {
+               _selectedWeapon = 0;
+            }
+            Debug.Log(_selectedWeapon);
+            break;
          }
-         Debug.Log(_selectedWeapon);
-      }else if (_starterAssetsInputs.switching < 0)
-      {
-         _selectedWeapon--;
-         if (_selectedWeapon == -1)
+         case < 0:
          {
-            _selectedWeapon = 2;
+            _selectedWeapon--;
+            if (_selectedWeapon == -1)
+            {
+               _selectedWeapon = 2;
+            }
+            Debug.Log(_selectedWeapon);
+            break;
          }
-         Debug.Log(_selectedWeapon);
       }
 
-      if (_selectedWeapon == 0)
+      switch (_selectedWeapon)
       {
-         _animator.SetLayerWeight(0, Mathf.Lerp(_animator.GetLayerWeight(0), 1f, Time.deltaTime * 10f));
-         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
-
-      }
-      else if (_selectedWeapon == 1)
-      {
-         _animator.SetLayerWeight(0, Mathf.Lerp(_animator.GetLayerWeight(0), 0f, Time.deltaTime * 10f));
-         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
+         case 0:
+            _animator.SetLayerWeight(0, Mathf.Lerp(_animator.GetLayerWeight(0), 1f, Time.deltaTime * 10f));
+            _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
+            _animator.SetLayerWeight(2, Mathf.Lerp(_animator.GetLayerWeight(2), 0f, Time.deltaTime * 10f));
+            break;
+         case 1:
+            _animator.SetLayerWeight(0, Mathf.Lerp(_animator.GetLayerWeight(0), 0f, Time.deltaTime * 10f));
+            _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
+            _animator.SetLayerWeight(2, Mathf.Lerp(_animator.GetLayerWeight(2), 0f, Time.deltaTime * 10f));
+            break;
+         case 2:
+            _animator.SetLayerWeight(0, Mathf.Lerp(_animator.GetLayerWeight(0), 0f, Time.deltaTime * 10f));
+            _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
+            _animator.SetLayerWeight(2, Mathf.Lerp(_animator.GetLayerWeight(2), 1f, Time.deltaTime * 10f));
+            break;
       }
       
       if (_starterAssetsInputs.shoot)
