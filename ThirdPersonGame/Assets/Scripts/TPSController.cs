@@ -54,7 +54,7 @@ public class TPSController : MonoBehaviour
          _thirdPersonController.SetRotateOnMove(false);
         
 
-         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
+         //_animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
 
          var worldAimTarget = mouseWorldPosition;
          var transform1 = transform;
@@ -69,7 +69,7 @@ public class TPSController : MonoBehaviour
          aimVirtualCamera.gameObject.SetActive(false);
          _thirdPersonController.SetSensitivity(normalSens);
          _thirdPersonController.SetRotateOnMove(true);
-         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
+         //_animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
       }
 
 
@@ -92,8 +92,18 @@ public class TPSController : MonoBehaviour
          }
          Debug.Log(_selectedWeapon);
       }
-      
-      
+
+      if (_selectedWeapon == 0)
+      {
+         _animator.SetLayerWeight(0, Mathf.Lerp(_animator.GetLayerWeight(0), 1f, Time.deltaTime * 10f));
+         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
+
+      }
+      else if (_selectedWeapon == 1)
+      {
+         _animator.SetLayerWeight(0, Mathf.Lerp(_animator.GetLayerWeight(0), 0f, Time.deltaTime * 10f));
+         _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
+      }
       
       if (_starterAssetsInputs.shoot)
       {
