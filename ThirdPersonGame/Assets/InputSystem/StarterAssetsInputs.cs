@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -14,6 +15,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool aim;
 		public bool shoot;
+		public float switching;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -36,6 +38,11 @@ namespace StarterAssets
 			}
 		}
 
+		public void OnSwitching(InputValue value)
+		{
+			SwitchingInput(value.Get<float>());
+		}
+
 		public void OnJump(InputValue value)
 		{
 			JumpInput(value.isPressed);
@@ -54,7 +61,7 @@ namespace StarterAssets
 			AimInput(value.isPressed);
 		}
 #endif
-
+		
 
 		public void MoveInput(Vector2 newMoveDirection)
 		{
@@ -84,16 +91,24 @@ namespace StarterAssets
 		{
 			aim = newAimState;
 		}
-
+		
+		public void SwitchingInput(float newSwitchState)
+		{
+			switching = newSwitchState;
+		}
+		
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}
-
+		
 		private void SetCursorState(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
+
 	}
+	
+	
 	
 }

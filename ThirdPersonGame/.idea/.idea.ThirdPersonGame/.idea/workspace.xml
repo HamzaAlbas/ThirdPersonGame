@@ -53,4 +53,23 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/ThirdPersonController.cs</url>
+          <line>153</line>
+          <properties documentPath="C:\Users\hamza\Documents\GitHub\ThirdPersonGame\ThirdPersonGame\Assets\Scripts\ThirdPersonController.cs" initialLine="153" containingFunctionPresentation="method 'Start'">
+            <startOffsets>
+              <option value="5345" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5346" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
 </project>
