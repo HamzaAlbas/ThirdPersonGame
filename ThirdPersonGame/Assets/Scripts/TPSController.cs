@@ -13,7 +13,7 @@ public class TPSController : MonoBehaviour
    [SerializeField] private Transform vfxHitGreen;
    [SerializeField] private AudioClip pistolClip;
 
-   private int _selectedWeapon;
+   private int _selectedWeapon; 
    
    [Range(0, 1)] public float pistolVolume = 0.5f;
    
@@ -118,18 +118,21 @@ public class TPSController : MonoBehaviour
             break;
       }
       
-      if (_starterAssetsInputs.shoot)
+      if (_selectedWeapon != 0)
       {
-         AudioSource.PlayClipAtPoint(pistolClip, transform.TransformPoint(weaponPos.position), pistolVolume);
-         
-         CameraShake.Instance.ShakeCamera();
-         if (hitTransform != null)
+         if (_starterAssetsInputs.shoot)
          {
-            Instantiate(hitTransform.GetComponent<BulletTarget>() != null ? vfxHitRed : vfxHitGreen, mouseWorldPosition,
-               Quaternion.identity);
-         }
+            AudioSource.PlayClipAtPoint(pistolClip, transform.TransformPoint(weaponPos.position), pistolVolume);
          
-         _starterAssetsInputs.shoot = false;
+            CameraShake.Instance.ShakeCamera();
+            if (hitTransform != null)
+            {
+               Instantiate(hitTransform.GetComponent<BulletTarget>() != null ? vfxHitRed : vfxHitGreen, mouseWorldPosition,
+                  Quaternion.identity);
+            }
+         
+            _starterAssetsInputs.shoot = false;
+         }
       }
    }
 
