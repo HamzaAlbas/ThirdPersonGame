@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 public class CamSwitch : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private Canvas tpsCanvas;
+    [SerializeField] private Canvas aimCanvas;
     private InputAction _aimAction;
     private CinemachineVirtualCamera _virtualCamera;
 
@@ -32,10 +34,14 @@ public class CamSwitch : MonoBehaviour
     private void StartAim()
     {
         _virtualCamera.Priority += 10;
+        aimCanvas.enabled = true;
+        tpsCanvas.enabled = false;
     }
 
     private void CancelAim()
     {
         _virtualCamera.Priority -= 10;
+        aimCanvas.enabled = false;
+        tpsCanvas.enabled = true;
     }
 }
