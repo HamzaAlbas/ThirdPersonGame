@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationSmoothTime: 0.1
-  playerSpeed: 7
+  playerSpeed: 3
   jumpHeight: 1
   gravityValue: -9.81
   rotationSpeed: 5
