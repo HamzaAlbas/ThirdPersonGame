@@ -12,7 +12,14 @@ public class PlayerController : MonoBehaviour
     private InputAction _jumpAction;
     private InputAction _shootAction;
     private Transform _camTransform;
-    
+
+    private Animator _animator;
+    private int _moveXAnimationParameterId;
+    private int _moveZAnimationParameterId;
+
+    private Vector2 _currentAnimationBlendVector;
+    private Vector2 _animationVelocity;
+    [SerializeField] private float animationSmoothTime;
     
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
@@ -34,6 +41,9 @@ public class PlayerController : MonoBehaviour
         _moveAction = _playerInput.actions["Move"];
         _jumpAction = _playerInput.actions["Jump"];
         _shootAction = _playerInput.actions["Shoot"];
+        _animator = GetComponent<Animator>();
+        _moveXAnimationParameterId = Animator.StringToHash("MoveX");
+        _moveZAnimationParameterId = Animator.StringToHash("MoveZ");
     }
 
     private void OnEnable()
@@ -55,11 +65,16 @@ public class PlayerController : MonoBehaviour
         }
 
         var input = _moveAction.ReadValue<Vector2>();
+        _currentAnimationBlendVector = Vector2.SmoothDamp(_currentAnimationBlendVector, input, ref _animationVelocity, animationSmoothTime);
+        
         Vector3 move = new Vector3(input.x, 0, input.y);
         //Move in direction to the camera
         move = move.x * _camTransform.right.normalized + move.z * _camTransform.forward.normalized;
         move.y = 0f;
         _controller.Move(move * Time.deltaTime * playerSpeed);
+        //Blending animations
+        _animator.SetFloat(_moveXAnimationParameterId, _currentAnimationBlendVector.x);
+        _animator.SetFloat(_moveZAnimationParameterId, _currentAnimationBlendVector.y);
 
         //Rotate towards camera direction
         var targetAngle = _camTransform.eulerAngles.y;
